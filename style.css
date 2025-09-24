@@ -13,3 +13,11 @@ body{
 h4{
    font-family: "Comic Sans MS";
 }
+
+.container{
+    background-color: blue;
+}
+
+.text{
+    background-color: orange;
+}
