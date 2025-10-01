@@ -1,23 +1,44 @@
-.goida{
-    Color: orange;
-}
-
-.slava{
-    background-color: #ffe21c;
-}
-
 body{
-    background-color: grey;
+    background-color: #2d2d2d;
 }
 
-h4{
-   font-family: "Comic Sans MS";
+.header-footer{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
 }
 
-.container{
-    background-color: blue;
+.logo{
+    width: 70px;
+    height: 70px;
+    margin-left: 200px;
 }
 
-.text{
-    background-color: orange;
+.menu-button{
+    color : white;
+    margin-left: 350px;
+    ul{
+        list-style: none;
+    }
+    li{
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+
+    }
+
+}
+
+.contact-data{
+    display: flex;
+    margin-left: 180px;
+
+    a{
+        text-decoration: none;
+        color: white;
+        font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+        font-weight: 500;
+    }
 }
