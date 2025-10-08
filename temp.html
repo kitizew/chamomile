@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll Snap Example</title>
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow-y: scroll;
+    scroll-behavior: auto; /* щоб миша “перескакувала” */
+  }
+
+  /* Батьківський контейнер для snap */
+  body {
+    scroll-snap-type: y mandatory; /* по вертикалі */
+  }
+
+  /* Кожна секція — snap point */
+  section {
+    height: 100vh;
+    scroll-snap-align: start; /* секція починається у верхній частині вікна */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 48px;
+    color: white;
+  }
+
+  /* Приклади фонів */
+  #home { background: #1abc9c; }
+  #about { background: #3498db; }
+  #services { background: #9b59b6; }
+  #contact { background: #e74c3c; }
+</style>
+</head>
+<body>
+
+<section id="home">Home</section>
+<section id="about">About</section>
+<section id="services">Services</section>
+<section id="contact">Contact</section>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Сайт з якорями на фоні фото</title>
+
+  <!-- Google font (один файл — все одно зовнішній, але гарно виглядає) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --accent: #ff7a59;
+      --glass: rgba(255,255,255,0.08);
+      --glass-strong: rgba(255,255,255,0.12);
+      --text: #ffffff;
+      --muted: rgba(255,255,255,0.8);
+      --backdrop: linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.55));
+      --nav-height: 72px;
+    }
+
+    /* ---- Basic reset ---- */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+      background: #111;
+    }
+
+    /* ---- Hero background ---- */
+    .hero{
+      min-height:100vh;
+      background-image:
+        var(--backdrop),
+        url("https://images.unsplash.com/photo-1503264116251-35a269479413?q=80&w=2000&auto=format&fit=crop");
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* ---- Top navigation (sticky) ---- */
+    .topbar{
+      position:sticky;
+      top:0;
+      height:var(--nav-height);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 20px;
+      z-index:40;
+      backdrop-filter: blur(8px) saturate(1.1);
+      background: linear-gradient(90deg, rgba(0,0,0,0.25), rgba(0,0,0,0.15));
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:700;
+      letter-spacing:0.4px;
+    }
+
+    .logo{
+      width:44px;height:44px;border-radius:10px;
+      background:linear-gradient(135deg,var(--accent),#ffd1b6);
+      display:grid;place-items:center;color:#fff;font-weight:800;font-size:18px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5), inset 0 -4px 10px rgba(255,255,255,0.06);
+    }
+
+    nav{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .nav-list{
+      display:flex;
+      gap:8px;
+      list-style:none;
+    }
+
+    .nav-list a{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:12px;
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:600;
+      font-size:14px;
+      transition: all 180ms ease;
+      backdrop-filter: blur(6px);
+    }
+
+    .nav-list a .dot{
+      width:8px;height:8px;border-radius:50%;
+      background:transparent; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.25);
+    }
+
+    .nav-list a:hover{
+      transform:translateY(-3px);
+      color:var(--text);
+      background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    }
+
+    .nav-list a.active{
+      color:var(--accent);
+      background: linear-gradient(90deg, rgba(255,122,89,0.08), rgba(255,122,89,0.03));
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    }
+
+    /* Button for CTA */
+    .cta{
+      padding:8px 12px;border-radius:10px;font-weight:700;background:linear-gradient(90deg,var(--accent),#ffb48f);
+      color:#111;text-decoration:none;margin-left:10px;box-shadow:0 6px 16px rgba(255,122,89,0.12);
+      display:inline-flex;align-items:center;gap:8px;font-size:14px;
+    }
+
+    /* ---- Mobile menu toggle ---- */
+    .menu-toggle{
+      display:none;
+      width:44px;height:44px;border-radius:10px;
+      align-items:center;justify-content:center;
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,0.04);
+      cursor:pointer;
+    }
+
+    /* ---- Hero inner content ---- */
+    .hero-content{
+      padding:40px 28px;
+      display:flex;
+      flex-direction:column;
+      gap:28px;
+      align-items:flex-start;
+      max-width:1200px;
+      margin:0 auto;
+      width:100%;
+    }
+
+    .tag{
+      background: rgba(255,255,255,0.06);
+      padding:8px 12px;border-radius:999px;font-weight:600;font-size:13px;color:var(--muted);
+      display:inline-block;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    h1{
+      font-size: clamp(28px, 6vw, 52px);
+      margin-top:8px;
+      line-height:1.02;
+      font-weight:800;
+      letter-spacing:-0.02em;
+      text-shadow: 0 6px 30px rgba(0,0,0,0.6);
+    }
+
+    p.lead{color:rgba(255,255,255,0.9);font-size:16px;max-width:780px}
+
+    /* ---- Sections to scroll to ---- */
+    section{
+      min-height:70vh;
+      padding:80px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .panel{
+      width:100%;
+      max-width:980px;
+      padding:26px;
+      border-radius:16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+
+    /* small helper styles */
+    .muted{color:rgba(255,255,255,0.85)}
+    .subtle{color:rgba(255,255,255,0.7);font-size:15px}
+
+    /* ---- Responsive ---- */
+    @media (max-width:900px){
+      .nav-list{display:none}
+      .menu-toggle{display:flex}
+    }
+
+    /* Mobile menu (simple slide-down) */
+    .mobile-menu{
+      position: absolute;
+      right:16px;top:calc(var(--nav-height) + 8px);
+      background: rgba(17,17,17,0.85);
+      border-radius:12px;
+      padding:8px;
+      display:flex;flex-direction:column;gap:6px;
+      min-width:160px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.6);
+      transform-origin:top right;
+      transition: transform 180ms ease, opacity 160ms ease;
+      opacity:0;pointer-events:none;transform:scale(0.96) translateY(-6px);
+      border:1px solid rgba(255,255,255,0.03);
+      z-index:45;
+    }
+    .mobile-menu.open{opacity:1;pointer-events:auto;transform:scale(1) translateY(0)}
+    .mobile-menu a{padding:10px;border-radius:8px;color:var(--muted);text-decoration:none;font-weight:600}
+    .mobile-menu a:hover{background:rgba(255,255,255,0.02);color:var(--text)}
+
+    /* Active section marker (for demonstration) */
+    .section-title{font-size:28px;font-weight:800}
+    .section-content{font-size:16px;color:rgba(255,255,255,0.9)}
+
+    /* make anchored sections not hidden behind sticky nav */
+    :target{scroll-margin-top: calc(var(--nav-height) + 12px);}
+
+  </style>
+</head>
+<body>
+
+  <div class="hero" role="img" aria-label="Фонове фото — краєвид">
+    <!-- Top navigation -->
+    <header class="topbar" role="banner">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">UA</div>
+        <div>
+          <div style="font-size:14px; color:var(--muted)">My Project</div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.6); margin-top:2px">beautiful anchors</div>
+        </div>
+      </div>
+
+      <nav role="navigation" aria-label="Головне меню">
+        <!-- Desktop list -->
+        <ul class="nav-list" id="navList">
+          <li><a href="#home" data-target="home" class="active"><span class="dot" style="background:var(--accent)"></span>Home</a></li>
+          <li><a href="#about" data-target="about"><span class="dot" style="background:#ffd1b6"></span>About</a></li>
+          <li><a href="#services" data-target="services"><span class="dot" style="background:#ffcf73"></span>Services</a></li>
+          <li><a href="#works" data-target="works"><span class="dot" style="background:#9be7ff"></span>Works</a></li>
+          <li><a href="#contact" data-target="contact"><span class="dot" style="background:#b9ffdd"></span>Contact</a></li>
+        </ul>
+
+        <a class="cta" href="#contact">Get in touch</a>
+
+        <!-- Mobile toggle -->
+        <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" title="Відкрити меню">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16M4 12h12M4 17h8" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+
+        <!-- Mobile menu -->
+        <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+          <a href="#home" data-target="home">Home</a>
+          <a href="#about" data-target="about">About</a>
+          <a href="#services" data-target="services">Services</a>
+          <a href="#works" data-target="works">Works</a>
+          <a href="#contact" data-target="contact">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero content -->
+    <div class="hero-content" role="region" aria-label="Вступ">
+      <span class="tag">Welcome</span>
+      <h1>Красива шапка з якорями і фоновим фото</h1>
+      <p class="lead">Наведіть курсор на меню зверху — і воно виглядатиме живим. Меню підсвічує активний розділ під час прокрутки. Це все в одному файлі — просто скопіюй та запускай.</p>
+    </div>
+
+    <!-- Anchored sections (видно при прокрутці) -->
+    <main>
+      <section id="home" aria-labelledby="t-home">
+        <div class="panel">
+          <div class="section-title" id="t-home">Home</div>
+          <p class="section-content">Це головний блок. Тут можна помістити короткий вступ, CTA або портфоліо.</p>
+        </div>
+      </section>
+
+      <section id="about" aria-labelledby="t-about">
+        <div class="panel">
+          <div class="section-title" id="t-about">About</div>
+          <p class="section-content">Розкажи про себе: що ви робите, місія, історія. Додай іконки, фото команди або лінки.</p>
+        </div>
+      </section>
+
+      <section id="services" aria-labelledby="t-services">
+        <div class="panel">
+          <div class="section-title" id="t-services">Services</div>
+          <p class="section-content">Опиши послуги в коротких пунктах. Користувач легко знайде те, що шукав.</p>
+        </div>
+      </section>
+
+      <section id="works" aria-labelledby="t-works">
+        <div class="panel">
+          <div class="section-title" id="t-works">Works</div>
+          <p class="section-content">Портфоліо, кейси — розмісти тут зображення або відео.</p>
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="t-contact">
+        <div class="panel">
+          <div class="section-title" id="t-contact">Contact</div>
+          <p class="section-content">Форма, пошта, соцмережі — все, щоб з вами зв'язались.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Плавна прокрутка (більшість браузерів підтримують CSS scroll-behavior, але зробимо також для js-перехоплення мобільних лінків)
+    document.documentElement.style.scrollBehavior = "smooth";
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuToggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+    });
+
+    // Close mobile menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded','false');
+        mobileMenu.setAttribute('aria-hidden','true');
+      });
+    });
+
+    // Active link highlighting while scrolling using IntersectionObserver
+    const sections = document.querySelectorAll('main section[id]');
+    const navLinks = document.querySelectorAll('.nav-list a');
+
+    const obsOptions = {
+      root: null,
+      rootMargin: '0px 0px -40% 0px', // тригер трохи раніше / пізніше
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        const link = document.querySelector('.nav-list a[data-target="'+id+'"]');
+        if (entry.isIntersecting) {
+          // Видалити active в усіх, потім додати для поточного
+          navLinks.forEach(n => n.classList.remove('active'));
+          if (link) link.classList.add('active');
+        }
+      });
+    }, obsOptions);
+
+    sections.forEach(s => observer.observe(s));
+
+    // Improve anchor clicks: smooth scroll with offset for sticky header
+    function scrollToIdWithOffset(id) {
+      const el = document.getElementById(id);
+      if(!el) return;
+      const navHeight = document.querySelector('.topbar').offsetHeight || 72;
+      const elTop = el.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({ top: elTop - navHeight - 10, behavior: 'smooth' });
+    }
+
+    // Override default to account for sticky nav on all anchor clicks in nav or mobile menu
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      // allow external hashes (like outside) to work normally if needed
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href || href === "#" || href === "#!") return;
+        const id = href.slice(1);
+        if (document.getElementById(id)) {
+          e.preventDefault();
+          scrollToIdWithOffset(id);
+        }
+      });
+    });
+
+    // keyboard accessibility: allow menu toggle with Enter/Space keys
+    menuToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        menuToggle.click();
+      }
+    });
+
+    // Optional: close mobile menu on outside click
+    document.addEventListener('click', (e) => {
+      if (!mobileMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+        mobileMenu.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded','false');
+        mobileMenu.setAttribute('aria-hidden','true');
+      }
+    });
+
+  </script>
+</body>
+</html>
